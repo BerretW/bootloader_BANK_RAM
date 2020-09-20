@@ -1,0 +1,6 @@
+name: CA65
+
+#cmd: nasm -o .\output_files\{FILE_ACTIVE_NAME_BASE}.hex -f bin -l {FILE_ACTIVE_NAME_BASE}.lst .\src\{FILE_ACTIVE_NAME}
+#cmd: ca65.exe -I .\include -o .\output\{FILE_ACTIVE_NAME_BASE}.o .\src\{FILE_ACTIVE_NAME}
+#cl65.exe ewoz.o bootloader.o acia.o zeropage.o ram_disk.o -C appartus.cfg -o bootloader.bin
+cmd: for %f in (.\src\*.asm) do ca65.exe -I .\include -o .\output\%~nf.o .\%f

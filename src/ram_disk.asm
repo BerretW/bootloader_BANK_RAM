@@ -27,7 +27,7 @@ msg_8:			.byte "FFF0 vypise HEX hodnotu na adrese pameti hFFF0", $00
 msg_9:			.byte "2000:FF zapise FF do pameti na adresu h2000", $00
 msg_10:			.byte "2000.200F vypise HEX hodnoty z adres h2000-h200F", $00
 msg_11:			.byte "Cisla 0-2 zmeni banku do ktere se program bude nahravat", $00
-msg_12:			.byte "Cekam na data do BANK", $00
+msg_12:			.byte "Cekam na data do BANK!", $00
 
 
 

@@ -184,7 +184,7 @@ _write_to_RAM:	LDA #<(msg_1)
 				BNE @end
 				INX
 				STX ptr1 + 1
-				CPX #$40
+				CPX #$80
 				BNE @end
 				JMP (RAMDISK_RESET_VECTOR)
 @end:			JMP @write
@@ -204,7 +204,7 @@ _read_RAM:
 				BNE @read
 				INX
 				STX ptr1 + 1
-				CPX #$40
+				CPX #$80
 				BEQ _go_loop
 @end:			JMP @read
 

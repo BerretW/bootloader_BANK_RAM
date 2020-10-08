@@ -1,0 +1,16 @@
+Name     V11_22V10;
+PartNo   00;
+Date     31/1/2020;
+Revision 01;
+Designer Alois;
+Company  Appartus;
+Assembly None;
+Location ;
+Device   g22v10;
+
+
+ORDER: A8, A9, A10, A11, A12, A13, A14, A15, ACIA_CS, IO_CS, IRQ_CS, RAM_CS, ROM_CS, BANK_CS; 
+
+
+VECTORS:
+01110011******

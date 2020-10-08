@@ -1,31 +1,38 @@
 %SIGNAL
+PIN   9 =  A8 
+PIN   8 =  A9 
+PIN   7 =  A10 
+PIN   6 =  A11 
 PIN   5 =  A12 
 PIN   4 =  A13 
 PIN   3 =  A14 
 PIN   2 =  A15 
-PIN  18 =  IOR 
-PIN  17 =  IOW 
+PIN  20 =  ACIA_CS 
+PIN  18 =  BANK_CS 
+PIN  15 =  IOR 
+PIN  14 =  IOW 
 PIN  21 =  IO_CS 
-PIN  16 =  IRQ 
-PIN   7 =  IRQ1 
-PIN   8 =  IRQ2 
-PIN   9 =  IRQ3 
-PIN  10 =  IRQ4 
-PIN  11 =  IRQ5 
-PIN  13 =  IRQ6 
-PIN  20 =  MEMR 
-PIN  19 =  MEMW 
+PIN  19 =  IRQ_CS 
+PIN  17 =  MEMR 
+PIN  16 =  MEMW 
 PIN   1 =  PHI2 
 PIN  22 =  RAM_CS 
 PIN  23 =  ROM_CS 
-PIN   6 =  RW 
+PIN  10 =  RW 
 %END
 
 %FIELD
 FIELD ADDRESS = A15,A14,A13,A12
+FIELD ADDRESS2 = A11,A10,A9,A8
 %END
 
 %EQUATION
+!ACIA_CS =>
+    A8 & A9 & A10 & A11 & !IO_CS
+
+!BANK_CS =>
+    !A14 & A15
+
 !IOR =>
     !IO_CS & PHI2 & RW
 
@@ -35,12 +42,8 @@ FIELD ADDRESS = A15,A14,A13,A12
 !IO_CS =>
     !A12 & !A13 & A14 & A15
 
-!IRQ =>
-    !IRQ1
-  # !IRQ2
-  # !IRQ3
-  # !IRQ4
-  # !IRQ6
+!IRQ_CS =>
+    !A8 & A9 & A10 & A11 & !IO_CS
 
 !MEMR =>
     IO_CS & PHI2 & RW
@@ -55,6 +58,12 @@ FIELD ADDRESS = A15,A14,A13,A12
     A12 & A14 & A15
   # !A12 & A13 & A14 & A15
 
+ACIA_CS.oe  =>
+    1 
+
+BANK_CS.oe  =>
+    1 
+
 IOR.oe  =>
     1 
 
@@ -64,7 +73,7 @@ IOW.oe  =>
 IO_CS.oe  =>
     1 
 
-IRQ.oe  =>
+IRQ_CS.oe  =>
     1 
 
 MEMR.oe  =>

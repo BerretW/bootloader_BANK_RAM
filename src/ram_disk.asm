@@ -18,10 +18,10 @@
 msg_0:			.byte "APPARTUS P65 Bootloader", $00
 msg_1:			.byte "Cekam na data", $00
 msg_2:			.byte "Pro napovedu stiskni H Prikazy posilej bez CR LF.", $00
-msg_3:			.byte "w = kazdy nasledujici byte zapise do pameti na pozici h2000 - h3FFF. Po prijeti vsech bytu se novy program spusti z pameti.", $00
-msg_4:			.byte "r = posle na seriovou linku data z pameti h2000 - h3FFF.", $00
+msg_3:			.byte "w = kazdy nasledujici byte zapise do pameti na pozici h6000 - h7FFF. Po prijeti vsech bytu se novy program spusti z pameti.", $00
+msg_4:			.byte "r = posle na seriovou linku data z pameti h6000 - h7FFF.", $00
 msg_6:			.byte "m = spusti EWOZ Monitor.", $00
-msg_5:			.byte "s = Spusti program z pozice reset vectoru nacteneho programu na adrese h3FFC,h3FFD.", $00
+msg_5:			.byte "s = Spusti program z pozice reset vectoru nacteneho programu na adrese h7FFC,hFFD.", $00
 msg_7:			.byte "Priklady prikazu pro EWOZ monitor:", $00
 msg_8:			.byte "FFF0 vypise HEX hodnotu na adrese pameti hFFF0", $00
 msg_9:			.byte "2000:FF zapise FF do pameti na adresu h2000", $00

@@ -11,43 +11,40 @@ Device   g22v10;
 /* *************** INPUT PINS *********************/
 
 
-PIN  1  = PHI2                     ; /*                                 */ 
-PIN  2  = A15                     ; /*                                 */ 
-PIN  3  = A14                     ; /*                                 */ 
-PIN  4  = A13                     ; /*                                 */ 
+PIN  1  = PHI2                     ; /*                                 */
+PIN  2  = A15                     ; /*                                 */
+PIN  3  = A14                     ; /*                                 */
+PIN  4  = A13                     ; /*                                 */
 PIN  5  = A12                     ; /*                                 */
-PIN  6  = A11				; /*                                 */
-PIN  7  = A10			; /*                                 */
-PIN  8  = A9			; /*                                 */
-PIN  9  = A8			; /*                                 */
-PIN 10  = RW;
-
+PIN  6  = RW				; /*                                 */
+PIN  7  = IRQ1			; /*                                 */
+PIN  8  = IRQ2			; /*                                 */
+PIN  9  = IRQ3			; /*                                 */
+PIN  10 = IRQ4			; /*                                 */
+PIN  11 = IRQ5			; /*                                 */
+PIN  13 = IRQ6			; /*                                 */
 
 
 
 
 FIELD ADDRESS = [A15..12];
-FIELD ADDRESS2 = [A11..8];
 
 /* *************** OUTPUT PINS *********************/
-PIN 23  = ROM_CS	                 	; /*                                 */ 
-PIN 22  = RAM_CS                 		; /*                                 */ 
-PIN 21  = IO_CS               		; /*                                 */ 
-PIN 20  = ACIA_CS             	; /*                                 */ 
-PIN 19  = IRQ_CS             	; /*                                 */ 
-PIN 18  = MEMR             	; /*                                 */ 
-PIN 17  = MEMW             	; /*                                 */ 
-PIN 16	= IOR;
-PIN 15 = IOW;
+PIN 23  = ROM_CS	                 	; /*                                 */
+PIN 22  = RAM_CS                 		; /*                                 */
+PIN 21  = IO_CS               		; /*                                 */
+PIN 20  = MEMR             	; /*                                 */
+PIN 19  = MEMW             	; /*                                 */
+PIN 18  = IOR             	; /*                                 */
+PIN 17  = IOW             	; /*                                 */
+PIN 16  = IRQ             	; /*                                 */
 
 !IO_CS		= ADDRESS:[C000..CFFF];
 !RAM_CS	= ADDRESS:[0000..7FFF];
 !ROM_CS	= ADDRESS:[D000..FFFF];
-!ACIA_CS	= ADDRESS2:[F00..FFF] & !IO_CS;
-!IRQ_CS	= ADDRESS2:[E00..EFF] & !IO_CS;
-
 
 !MEMR		= IO_CS & RW & PHI2;
 !MEMW		= IO_CS & !RW & PHI2;
 !IOR		= !IO_CS & RW & PHI2;
 !IOW		= !IO_CS & !RW & PHI2;
+!IRQ		= !IRQ1 # !IRQ2 # !IRQ3 # !IRQ4 # !IRQ6;

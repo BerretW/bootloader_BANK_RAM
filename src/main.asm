@@ -1,7 +1,7 @@
 				.setcpu "65C02"
 				.include "io.inc65"
 				.include "zeropage.inc65"
-				
+
 				.import _lcd_init
 				.import _lcd_putc
 				.import _lcd_puts
@@ -16,35 +16,40 @@
 				.import _read_ram
 				.import _bootloader_
 
-				
+
 				.export _delay
-				
+
                 .segment "VECTORS"
 
                 .word   nmi
                 .word   reset
                 .word   irq
-		
-								
+
+
                 .segment "CODE"
 
-	
-reset:           JMP main
 
-nmi:             RTI
+reset:          JMP main
 
-irq:            LDA #33
-				JSR _acia_putc
-				JMP (RAMDISK_IRQ_VECTOR)
-				
+nmi:            LDA #34
+								JSR _acia_putc
+								JMP (RAMDISK_NMI_VECTOR)
+								RTI
 
-main:			
+irq:            SEI
+								LDA #33
+								JSR _acia_putc
+								JMP (RAMDISK_IRQ_VECTOR)
+								RTI
+
+
+main:						CLI
 				;JSR _lcd_init
-				JSR _acia_init
-				JMP _bootloader_
-				
+								JSR _acia_init
+								JMP _bootloader_
 
-_delay:			LDX #$FF				
-_delay1:		DEX
-				BNE _delay1
-				RTS
+
+_delay:					LDX #$FF
+_delay1:				DEX
+								BNE _delay1
+								RTS

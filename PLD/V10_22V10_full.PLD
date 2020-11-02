@@ -43,8 +43,8 @@ PIN 16  = IRQ             	; /*                                 */
 !RAM_CS	= ADDRESS:[0000..7FFF];
 !ROM_CS	= ADDRESS:[D000..FFFF];
 
-!MEMR		= IO_CS & RW & PHI2;
-!MEMW		= IO_CS & !RW & PHI2;
-!IOR		= !IO_CS & RW & PHI2;
-!IOW		= !IO_CS & !RW & PHI2;
+!MEMR		= RW & PHI2;
+!MEMW		= !RW & PHI2;
+!IOR		= RW & PHI2;
+!IOW		= !RW & PHI2;
 !IRQ		= !IRQ1 # !IRQ2 # !IRQ3 # !IRQ4 # !IRQ6;

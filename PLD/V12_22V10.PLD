@@ -36,17 +36,20 @@ PIN 20  = ACIA_CS             	; /*                                 */
 PIN 19  = IRQ_CS             	; /*                                 */ 
 PIN 17  = MEMR             	; /*                                 */ 
 PIN 16	= MEMW;
-PIN 15 = IOR;
-PIN 14 = IOW;
+PIN 15 = CS0;
+PIN 14 = CS1;
+PIN 18 = CS2;
 
-!IO_CS		= ADDRESS:[C000..CDFF];
+!IO_CS		= ADDRESS:[C000..CFFF];
 !RAM_CS	= ADDRESS:[0000..7FFF];
 !ROM_CS	= ADDRESS:[D000..FFFF];
 !ACIA_CS	= ADDRESS:[CF00..CFFF] ;
 !IRQ_CS	= ADDRESS:[CE00..CEFF] ;
+!CS0		= ADDRESS:[C000..C0FF] ;
+!CS1		= ADDRESS:[C100..C1FF] ;
+!CS2		= ADDRESS:[C200..C2FF] ;
+
 
 
 !MEMR		= RW & PHI2;
 !MEMW		= !RW & PHI2;
-!IOR		= RW & PHI2;
-!IOW		= !RW & PHI2;

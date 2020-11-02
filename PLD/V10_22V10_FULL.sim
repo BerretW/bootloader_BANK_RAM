@@ -27,10 +27,10 @@ FIELD ADDRESS = A15,A14,A13,A12
 
 %EQUATION
 !IOR =>
-    !IO_CS & PHI2 & RW
+    PHI2 & RW
 
 !IOW =>
-    !IO_CS & PHI2 & !RW
+    PHI2 & !RW
 
 !IO_CS =>
     !A12 & !A13 & A14 & A15
@@ -43,10 +43,10 @@ FIELD ADDRESS = A15,A14,A13,A12
   # !IRQ6
 
 !MEMR =>
-    IO_CS & PHI2 & RW
+    PHI2 & RW
 
 !MEMW =>
-    IO_CS & PHI2 & !RW
+    PHI2 & !RW
 
 !RAM_CS =>
     !A15

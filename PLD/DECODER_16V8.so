@@ -1,0 +1,30 @@
+CSIM(WM): CUPL Simulation Program
+Version 5.0a Serial# 
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+CREATED Sun Oct 25 18:03:23 2020
+
+LISTING FOR SIMULATION FILE: DECODER_16V8.si
+
+   1: Name     Decoder_16V8;
+   2: PartNo   00;
+   3: Date     31/1/2020;
+   4: Revision 01;
+   5: Designer Alois;
+   6: Company  Appartus;
+   7: Assembly None;
+   8: Location ;
+   9: Device   g16v8;
+  10: 
+  11: 
+  12: FIELD ADDRESS = [A11,A10,A9,A8];
+  13:
+  14: ORDER: A8, A9, A10, A11, CS, IO, nCS; 
+  15: 
+  16: 
+
+================
+        AA  n   
+      AA11CIC   
+      8901SOS   
+================
+0001: 1000L1L

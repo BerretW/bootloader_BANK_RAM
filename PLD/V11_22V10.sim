@@ -8,7 +8,6 @@ PIN   4 =  A13
 PIN   3 =  A14 
 PIN   2 =  A15 
 PIN  20 =  ACIA_CS 
-PIN  18 =  BANK_CS 
 PIN  15 =  IOR 
 PIN  14 =  IOW 
 PIN  21 =  IO_CS 
@@ -22,34 +21,32 @@ PIN  10 =  RW
 %END
 
 %FIELD
-FIELD ADDRESS = A15,A14,A13,A12
-FIELD ADDRESS2 = A11,A10,A9,A8
+FIELD ADDRESS = A15,A14,A13,A12,A11,A10,A9,A8
 %END
 
 %EQUATION
 !ACIA_CS =>
-    A8 & A9 & A10 & A11 & !IO_CS
-
-!BANK_CS =>
-    !A14 & A15
+    A8 & A9 & A10 & A11 & !A12 & !A13 & A14 & A15
 
 !IOR =>
-    !IO_CS & PHI2 & RW
+    PHI2 & RW
 
 !IOW =>
-    !IO_CS & PHI2 & !RW
+    PHI2 & !RW
 
 !IO_CS =>
-    !A12 & !A13 & A14 & A15
+    !A9 & A10 & A11 & !A12 & !A13 & A14 & A15
+  # !A11 & !A12 & !A13 & A14 & A15
+  # !A10 & A11 & !A12 & !A13 & A14 & A15
 
 !IRQ_CS =>
-    !A8 & A9 & A10 & A11 & !IO_CS
+    !A8 & A9 & A10 & A11 & !A12 & !A13 & A14 & A15
 
 !MEMR =>
-    IO_CS & PHI2 & RW
+    PHI2 & RW
 
 !MEMW =>
-    IO_CS & PHI2 & !RW
+    PHI2 & !RW
 
 !RAM_CS =>
     !A15
@@ -59,9 +56,6 @@ FIELD ADDRESS2 = A11,A10,A9,A8
   # !A12 & A13 & A14 & A15
 
 ACIA_CS.oe  =>
-    1 
-
-BANK_CS.oe  =>
     1 
 
 IOR.oe  =>

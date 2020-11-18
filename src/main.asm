@@ -15,6 +15,7 @@
 				.import _write_to_ram
 				.import _read_ram
 				.import _bootloader_
+				.import _format_bank
 
 
 				.export _delay
@@ -31,21 +32,20 @@
 
 reset:          JMP main
 
-nmi:            LDA #34
-								JSR _acia_putc
-								JMP (RAMDISK_NMI_VECTOR)
+nmi:            JMP (RAMDISK_NMI_VECTOR)
 								RTI
 
-irq:            SEI
-								LDA #33
+irq:            PHA
+								LDA $CE00
 								JSR _acia_putc
-								JMP (RAMDISK_IRQ_VECTOR)
+								;JSR (RAMDISK_IRQ_VECTOR)
+								PLA
 								RTI
 
 
 main:						CLI
-				;JSR _lcd_init
 								JSR _acia_init
+								
 								JMP _bootloader_
 
 

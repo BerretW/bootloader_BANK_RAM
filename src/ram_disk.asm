@@ -9,6 +9,7 @@
 					.import _acia_puts
 					.import _lcd_w_reg
 					.import _acia_put_newline
+          .import _format_bank
 
 
 					.export _print_help
@@ -28,6 +29,7 @@ msg_9:			.byte "2000:FF zapise FF do pameti na adresu h2000", $00
 msg_10:			.byte "2000.200F vypise HEX hodnoty z adres h2000-h200F", $00
 msg_11:			.byte "Cisla 0-2 zmeni banku do ktere se program bude nahravat", $00
 msg_12:			.byte "Cekam na data do BANK!", $00
+msg_13:			.byte "MAZU BANKDISK", $00
 
 
 
@@ -57,6 +59,9 @@ _loop:			JSR _acia_getc
 
 				CMP #'H'
 				BEQ _start_help
+
+        CMP #'F'
+        BEQ _start_bank_format
 
 				CMP #'s'
 				BEQ _start_program
@@ -101,6 +106,11 @@ _start_read_BANK:	JMP _read_BANK
 _start_write:	JMP _write_to_RAM
 _start_write_BANK:	JMP _write_to_BANK
 
+_start_bank_format: LDA #<(msg_13)
+				          LDX #>(msg_13)
+				          JSR _acia_puts
+                    jsr _format_bank
+                    JMP _go_loop
 _switch_b0: LDA #0
             STA $CE00
             JMP _loop
@@ -229,7 +239,7 @@ _write_to_BANK:	LDA #<(msg_12)
 				STX ptr1 + 1
 				CPX #$C0
 				BNE @end_BANK
-				JMP (BANKDISK_RESET_VECTOR)
+				JMP _loop
 @end_BANK:			JMP @write_BANK
 
 

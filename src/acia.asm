@@ -30,7 +30,7 @@ _acia_putc:         pha
                     beq @wait_txd_empty
                     pla
                     sta ACIA_DATA
-					JSR DELAY_6551
+					          ;JSR DELAY_6551
                     rts
 
 ; void acia_puts(const char * s)

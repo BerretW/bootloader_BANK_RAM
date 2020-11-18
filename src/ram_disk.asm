@@ -229,7 +229,7 @@ _write_to_BANK:	LDA #<(msg_12)
 				STX ptr1 + 1
 				CPX #$C0
 				BNE @end_BANK
-				JMP (BANKDISK_RESET_VECTOR)
+				JMP _go_loop
 @end_BANK:			JMP @write_BANK
 
 

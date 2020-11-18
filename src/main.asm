@@ -31,15 +31,10 @@
 
 reset:          JMP main
 
-nmi:            LDA #34
-								JSR _acia_putc
-								JMP (RAMDISK_NMI_VECTOR)
+nmi:            JMP (RAMDISK_NMI_VECTOR)
 								RTI
 
-irq:            SEI
-								LDA #33
-								JSR _acia_putc
-								JMP (RAMDISK_IRQ_VECTOR)
+irq:            JMP (RAMDISK_IRQ_VECTOR)
 								RTI
 
 

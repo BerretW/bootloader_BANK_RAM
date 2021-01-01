@@ -112,28 +112,28 @@ _start_bank_format: LDA #<(msg_13)
                     jsr _format_bank
                     JMP _go_loop
 _switch_b0: LDA #0
-            STA $CE00
+            STA BANK_BASE
             JMP _loop
 _switch_b1: LDA #1
-            STA $CE00
+            STA BANK_BASE
             JMP _loop
 _switch_b2: LDA #2
-            STA $CE00
+            STA BANK_BASE
             JMP _loop
 _switch_b3: LDA #3
-            STA $CE00
+            STA BANK_BASE
             JMP _loop
 _switch_b4: LDA #4
-            STA $CE00
+            STA BANK_BASE
             JMP _loop
 _switch_b5: LDA #5
-            STA $CE00
+            STA BANK_BASE
             JMP _loop
 _switch_b6: LDA #6
-            STA $CE00
+            STA BANK_BASE
             JMP _loop
 _switch_b7: LDA #7
-            STA $CE00
+            STA BANK_BASE
             JMP _loop
 
 _print_help:	LDA #<(msg_3)
@@ -239,7 +239,7 @@ _write_to_BANK:	LDA #<(msg_12)
 				STX ptr1 + 1
 				CPX #$C0
 				BNE @end_BANK
-				JMP _loop
+				JMP _go_loop
 @end_BANK:			JMP @write_BANK
 
 

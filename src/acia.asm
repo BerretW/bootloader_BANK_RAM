@@ -4,7 +4,7 @@
                     .export _acia_init
                     .export _acia_putc
                     .export _acia_puts
-					.export _acia_getc
+					          .export _acia_getc
                     .export _acia_put_newline
 
                     ;.import popax
@@ -30,7 +30,7 @@ _acia_putc:         pha
                     beq @wait_txd_empty
                     pla
                     sta ACIA_DATA
-					JSR DELAY_6551
+					          ;JSR DELAY_6551
                     rts
 
 ; void acia_puts(const char * s)

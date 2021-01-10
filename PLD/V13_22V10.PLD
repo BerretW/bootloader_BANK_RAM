@@ -1,0 +1,61 @@
+Name     V13_22V10 ;
+PartNo   00 ;
+Date     31/1/2020;
+Revision 01 ;
+Designer Alois ;
+Company  Appartus ;
+Assembly None ;
+Location  ;
+Device   g22v10;
+
+/* *************** INPUT PINS *********************/
+
+
+PIN  1  = PHI2                     ; /*                                 */ 
+PIN  2  = A15                     ; /*                                 */ 
+PIN  3  = A14                     ; /*                                 */ 
+PIN  4  = A13                     ; /*                                 */ 
+PIN  5  = A12                     ; /*                                 */
+PIN  6  = A11				; /*                                 */
+PIN  7  = A10			; /*                                 */
+PIN  8  = A9			; /*                                 */
+PIN  9  = A8			; /*                                 */
+PIN 10  = RW;
+
+
+
+
+
+FIELD ADDRESS = [A15..8];
+
+/* *************** OUTPUT PINS *********************/
+PIN 23  = ROM_CS	                 	; /*                                 */ 
+PIN 22  = RAM_CS                 		; /*                                 */ 
+PIN 21  = VIA_CS               		; /*                                 */ 
+PIN 20  = ACIA_CS             	; /*                                 */ 
+PIN 19  = IRQ_CS             	; /*
+
+PIN 18  = BANK_CS             	; /*                                    */ 
+PIN 17  = MEMR             	; /*                                 */ 
+PIN 16	= MEMW;
+
+PIN 15	= IOR;
+
+PIN 14	= IOW;
+
+
+!IO_CS		= ADDRESS:[C000..CFFF];
+!RAM_CS	= ADDRESS:[0000..BFFF];
+!ROM_CS	= ADDRESS:[D000..FFFF];
+
+!ACIA_CS	= ADDRESS:[CF00..CFFF] ;
+!IRQ_CS	= ADDRESS:[CE00..CEFF] ;
+!VIA_CS	= ADDRESS:[CD00..CDFF] ;
+!BANK_CS	= ADDRESS:[CC00..CCFF] ;
+
+
+!IOR		= !MEMR & !IO_CS;
+!IOW		= !MEMW & !IO_CS;
+
+!MEMR		= RW & PHI2;
+!MEMW		= !RW & PHI2;

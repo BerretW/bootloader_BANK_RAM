@@ -75,9 +75,9 @@ CRCCHECK    = $30
 
 
 .segment "CODE"
-			
 
-	
+
+
 _EWOZ:  	    CLD             ; Clear decimal arithmetic mode.
             CLI
 .if .defined(MULTIPORT)
@@ -392,7 +392,7 @@ GETCHAR:    LDA KBDCR       ; Key ready?
             LDA KBD         ; Load character. B7 should be ‘1’.
 .endif
             RTS
-			
+
 .segment "RODATA"
 MSG1:      .byte "Welcome to EWOZ 1.0.",0
 MSG2:      .byte "Start Intel Hex code Transfer.",0

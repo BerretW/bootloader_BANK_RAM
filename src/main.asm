@@ -19,7 +19,7 @@
 
 
 				.export _delay
-
+				.export main
                 .segment "VECTORS"
 
                 .word   nmi
@@ -30,22 +30,19 @@
                 .segment "CODE"
 
 
-reset:          JMP main
+reset:          CLI
+								JMP main
 
 nmi:            JMP (RAMDISK_NMI_VECTOR)
 								RTI
 
-irq:            PHA
-								LDA $CE00
-								JSR _acia_putc
-								;JSR (RAMDISK_IRQ_VECTOR)
-								PLA
+irq:            JMP (RAMDISK_IRQ_VECTOR)
 								RTI
 
 
-main:						CLI
+main:						
 								JSR _acia_init
-								
+
 								JMP _bootloader_
 
 

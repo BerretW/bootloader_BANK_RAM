@@ -2,7 +2,7 @@
 					.include "macros.inc65"
 					.include "zeropage.inc65"
 					.include "ewoz.asm"
-
+          .autoimport on
 					.import _acia_init
 					.import _acia_putc
 					.import _acia_getc
@@ -16,7 +16,7 @@
 					.export _bootloader_
           .export _loop
 					.segment "RODATA"
-msg_0:			.byte "APPARTUS P65 Bootloader", $00
+msg_0:			.byte "APPARTUS P65 Bootloader RAM", $00
 msg_1:			.byte "Cekam na data", $00
 msg_2:			.byte "Pro napovedu stiskni H Prikazy posilej bez CR LF.", $00
 msg_3:			.byte "w = kazdy nasledujici byte zapise do pameti na pozici h6000 - h7FFF. Po prijeti vsech bytu se novy program spusti z pameti.", $00
@@ -35,15 +35,13 @@ msg_13:			.byte "MAZU BANKDISK", $00
 
 					.segment "CODE"
 
-_bootloader_:	JSR _acia_put_newline
+_bootloader_:
 				LDA #<(msg_0)
 				LDX #>(msg_0)
-				JSR _acia_puts
-				JSR _acia_put_newline
+				JSR _print_nl
 				LDA #<(msg_2)
 				LDX #>(msg_2)
-				JSR _acia_puts
-				JSR _acia_put_newline
+				JSR _print_nl
 
 _loop:			JSR _acia_getc
 
@@ -107,8 +105,8 @@ _start_write:	JMP _write_to_RAM
 _start_write_BANK:	JMP _write_to_BANK
 
 _start_bank_format: LDA #<(msg_13)
-				          LDX #>(msg_13)
-				          JSR _acia_puts
+				            LDX #>(msg_13)
+				         		JSR _print_nl
                     jsr _format_bank
                     JMP _go_loop
 _switch_b0: LDA #0
@@ -138,55 +136,46 @@ _switch_b7: LDA #7
 
 _print_help:	LDA #<(msg_3)
 				LDX #>(msg_3)
-				JSR _acia_puts
-				JSR _acia_put_newline
+				JSR _print_nl
 				LDA #<(msg_4)
 				LDX #>(msg_4)
-				JSR _acia_puts
-				JSR _acia_put_newline
+				JSR _print_nl
 				LDA #<(msg_5)
 				LDX #>(msg_5)
-				JSR _acia_puts
-				JSR _acia_put_newline
+				JSR _print_nl
 				LDA #<(msg_6)
 				LDX #>(msg_6)
-				JSR _acia_puts
-				JSR _acia_put_newline
+				JSR _print_nl
 				LDA #<(msg_7)
 				LDX #>(msg_7)
-				JSR _acia_puts
-				JSR _acia_put_newline
+				JSR _print_nl
 				LDA #<(msg_8)
 				LDX #>(msg_8)
-				JSR _acia_puts
-				JSR _acia_put_newline
+				JSR _print_nl
 				LDA #<(msg_9)
 				LDX #>(msg_9)
-				JSR _acia_puts
-				JSR _acia_put_newline
+				JSR _print_nl
 				LDA #<(msg_10)
 				LDX #>(msg_10)
-				JSR _acia_puts
-				JSR _acia_put_newline
+				JSR _print_nl
         LDA #<(msg_11)
         LDX #>(msg_11)
-        JSR _acia_puts
-        JSR _acia_put_newline
+				JSR _print_nl
 				JMP _loop
 
 
 
 _write_to_RAM:	LDA #<(msg_1)
-				LDX #>(msg_1)
-				JSR _acia_puts
+				        LDX #>(msg_1)
+				        JSR _print_nl
 
-				LDY #0
-				LDA #<(RAMDISK)
-				LDX #>(RAMDISK)
-				STA ptr1
-				STX ptr1 + 1
+				        LDY #0
+				        LDA #<(RAMDISK)
+				        LDX #>(RAMDISK)
+				        STA ptr1
+				        STX ptr1 + 1
 
-@write:			JSR _acia_getc
+@write:			    JSR _acia_getc
 				;JSR _lcd_putc
 				STA (ptr1), Y
 				INY
@@ -221,7 +210,7 @@ _read_RAM:
 
 _write_to_BANK:	LDA #<(msg_12)
 				LDX #>(msg_12)
-				JSR _acia_puts
+				JSR _print_nl
 
 				LDY #0
 				LDA #<(BANKDISK)

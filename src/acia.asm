@@ -51,11 +51,11 @@ _acia_puts:         phay
 ; void acia_put_newline()
 ; Send a newline character
 _acia_put_newline:  PHA
-                    PHX
-                    lda #$0a
-                    jsr _acia_putc
+                    LDA #$0D
+                    STA ACIA_DATA
+                    LDA #$0A
+                    STA ACIA_DATA
                     PLA
-                    PLX
                     RTS
 
 ; char acia_getc()

@@ -12,10 +12,32 @@
 .macpack	longbranch
 
 .export _format_bank
+.export _set_bank
+.export _get_bank
+.export __delay2
+.export _print_nl
 
 .segment "RODATA"
 msg_0:			.byte "Mazu BANKDISK", $00
 .code
+
+
+_set_bank:
+					STA BANK_BASE
+					;CLC
+					;ADC #$30
+					;JSR _acia_putc
+					RTS
+_get_bank:  LDA BANK_BASE
+            RTS
+
+; ---------------------------------------------------------------
+; void __near__ print_f (char *s)
+; ---------------------------------------------------------------
+
+_print_nl:
+            jsr     _acia_put_newline
+            JMP     _acia_puts
 
 
 _format_bank:
@@ -36,3 +58,9 @@ _format_bank:
                   BNE @end_BANK
                   RTS
 @end_BANK:			  JMP @write_BANK
+
+
+__delay2:				LDX #$2
+__delay3:				DEX
+                BNE __delay3
+                RTS

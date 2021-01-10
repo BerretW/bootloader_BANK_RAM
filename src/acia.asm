@@ -50,11 +50,13 @@ _acia_puts:         phay
                     rts
 ; void acia_put_newline()
 ; Send a newline character
-_acia_put_newline:  pha
+_acia_put_newline:  PHA
+                    PHX
                     lda #$0a
                     jsr _acia_putc
-                    pla
-                    rts
+                    PLA
+                    PLX
+                    RTS
 
 ; char acia_getc()
 ; Wait until a character was reveiced and return it

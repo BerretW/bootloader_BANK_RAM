@@ -14,7 +14,7 @@
 
 					.export _print_help
 					.export _bootloader_
-
+          .export _loop
 					.segment "RODATA"
 msg_0:			.byte "APPARTUS P65 Bootloader", $00
 msg_1:			.byte "Cekam na data", $00

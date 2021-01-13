@@ -16,7 +16,7 @@
 					.export _bootloader_
           .export _loop
 					.segment "RODATA"
-msg_0:			.byte "APPARTUS P65 Bootloader RAM", $00
+msg_0:			.byte "APPARTUS P65 Bootloader RAMa", $00
 msg_1:			.byte "Cekam na data", $00
 msg_2:			.byte "Pro napovedu stiskni H Prikazy posilej bez CR LF.", $00
 msg_3:			.byte "w = kazdy nasledujici byte zapise do pameti na pozici h6000 - h7FFF. Po prijeti vsech bytu se novy program spusti z pameti.", $00
@@ -36,15 +36,20 @@ msg_13:			.byte "MAZU BANKDISK", $00
 					.segment "CODE"
 
 _bootloader_:
-        JSR KBINPUT
-        JSR _acia_putc
+
 				LDA #<(msg_0)
 				LDX #>(msg_0)
 				JSR _print_nl
 				LDA #<(msg_2)
 				LDX #>(msg_2)
 				JSR _print_nl
+        JSR kbinit
 
+;kbrd:   JSR INPUT
+;				CMP #0
+;				BEQ kbrd
+;        JSR _acia_putc
+;        JMP kbrd
 
 _loop:			JSR _acia_getc
 

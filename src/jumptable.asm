@@ -1,6 +1,5 @@
 .zeropage
-song_addr:			.res 2
-_song_pos:			.res 2
+
 .smart		on
 .autoimport	on
 .case		on
@@ -21,7 +20,8 @@ SNINIT: JMP _sn_init                    ;FF12 Initialize SN76489 chipwith mute
 SNWRT:  JMP _sn_write_data              ;FF15 write data from regA to sn76489
 SHDLY:  JMP __delay2                    ;FF18 very short delay
 RST:    JMP _loop                       ;FF1B
-KBINPUT:JMP kbinput                     ;FF1E
+KBINPUT: JMP kbinput                     ;FF1E
 KBGET:  JMP kbget                       ;FF21
-KBSCAN: JMP KBSCAN                      ;FF24
+KBSCAN: JMP kbscan                     ;FF24
 KBINIT: JMP kbinit                      ;FF27
+INPUT:  JMP INPUT_CHK                       ;FF2A

@@ -16,11 +16,20 @@
 .export _get_bank
 .export __delay2
 .export _print_nl
+.export INPUT_CHK
 
 .segment "RODATA"
 msg_0:			.byte "Mazu BANKDISK", $00
-.code
 
+.segment "CODE"
+INPUT_CHK:		JSR kbscan
+					CMP #0
+					BNE @END
+@RS:			LDA ACIA_STATUS
+					AND #ACIA_STATUS_RX_FULL
+					BEQ @END
+					LDA ACIA_DATA
+@END:			RTS
 
 _set_bank:
 					STA BANK_BASE

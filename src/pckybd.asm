@@ -142,19 +142,26 @@
 ; KBINIT
 
 
-.export kbinput,kbget,KBSCAN,kbinit
+.export kbinput
+.export kbget
+.export kbscan
+.export kbinit
 
 .setcpu "65C02"
+.include "io.inc65"
 ;.include "macros.inc65"
 .include "zeropage.inc65"
-
+;
 ; I/O Port definitions
 .segment "DATA"
 
-kbportreg      =     $C501             ; 6522 IO port register B
-kbportddr      =     $C503             ; 6522 IO data direction register B
-clk            =     $10               ; 6522 IO port clock bit mask (PB4)
-data           =     $20               ; 6522 IO port data bit mask  (PB5)
+kbportreg      =     KB_PORT             ; 6522 IO port register B
+kbportddr      =     KB_DDR             ; 6522 IO data direction register B
+
+.segment "RODATA"
+
+clk            =     KB_CLK_MSK               ; 6522 IO port clock bit mask (PB4)
+data           =     KB_DTA_MSK               ; 6522 IO port data bit mask  (PB5)
 
 ; NOTE: some locations use the inverse of the bit masks to change the state of
 ; bit.  You will have to find them and change them in the code acordingly.
@@ -163,7 +170,7 @@ data           =     $20               ; 6522 IO port data bit mask  (PB5)
 ;
 ;
 ; temportary storage locations (zero page can be used but not necessary)
-.segment"ZP"
+.segment "DATA"
 byte           =     $02D0             ; byte send/received
 parity         =     $02D1             ; parity holder for rx
 special        =     $02d2             ; ctrl, shift, caps and kb LED holder
@@ -444,7 +451,7 @@ kbccmd:         .word kbtrap83          ;
 ; is ready is ambiguous.  You must call KBGET or KBINPUT to
 ; get the keyboard data.
 ;
-KBSCAN:         ldx   #$05              ; timer: x = (cycles - 40)/13   (105-40)/13=5
+kbscan:         ldx   #$05              ; timer: x = (cycles - 40)/13   (105-40)/13=5
                lda   kbportddr         ;
                and   #$CF              ; set clk to input (change if port bits change)
                sta   kbportddr         ;
@@ -458,8 +465,8 @@ kbscan1:        lda   #clk              ;
                rts                     ; return
 kbscan2:        jsr   kbdis             ; disable the receiver so other routines get it
 ; Three alternative exits if data is ready to be received: Either return or jmp to handler
-               rts                     ; return (A<>0, A=clk bit mask value from kbdis)
-;               jmp   KBINPUT           ; if key pressed, decode it with KBINPUT
+;               rts                     ; return (A<>0, A=clk bit mask value from kbdis)
+               jmp   kbinput           ; if key pressed, decode it with KBINPUT
 ;               jmp   KBGET             ; if key pressed, decode it with KBGET
 ;
 ;

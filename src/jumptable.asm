@@ -21,3 +21,7 @@ SNINIT: JMP _sn_init                    ;FF12 Initialize SN76489 chipwith mute
 SNWRT:  JMP _sn_write_data              ;FF15 write data from regA to sn76489
 SHDLY:  JMP __delay2                    ;FF18 very short delay
 RST:    JMP _loop                       ;FF1B
+KBINPUT:JMP kbinput                     ;FF1E
+KBGET:  JMP kbget                       ;FF21
+KBSCAN: JMP KBSCAN                      ;FF24
+KBINIT: JMP kbinit                      ;FF27

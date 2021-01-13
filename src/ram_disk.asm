@@ -36,12 +36,15 @@ msg_13:			.byte "MAZU BANKDISK", $00
 					.segment "CODE"
 
 _bootloader_:
+        JSR KBINPUT
+        JSR _acia_putc
 				LDA #<(msg_0)
 				LDX #>(msg_0)
 				JSR _print_nl
 				LDA #<(msg_2)
 				LDX #>(msg_2)
 				JSR _print_nl
+
 
 _loop:			JSR _acia_getc
 

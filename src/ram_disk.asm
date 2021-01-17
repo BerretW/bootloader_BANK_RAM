@@ -43,7 +43,7 @@ _bootloader_:
 				LDA #<(msg_2)
 				LDX #>(msg_2)
 				JSR _print_nl
-        JSR kbinit
+        ;JSR kbinit
 
 ;kbrd:   JSR INPUT
 ;				CMP #0

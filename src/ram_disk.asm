@@ -7,7 +7,6 @@
 					.import _acia_putc
 					.import _acia_getc
 					.import _acia_puts
-					.import _lcd_w_reg
 					.import _acia_put_newline
           .import _format_bank
 
@@ -63,6 +62,9 @@ _loop:			JSR _acia_getc
         CMP #'R'
 				BEQ _start_read_BANK
 
+        CMP #'t'
+        BEQ __via_test
+
 				CMP #'H'
 				BEQ _start_help
 
@@ -102,7 +104,7 @@ _loop:			JSR _acia_getc
         BEQ _switch_b7
 
 				JMP	_loop
-
+__via_test: JMP _via_test
 _start_program:	JMP (RAMDISK_RESET_VECTOR)
 _start_program_BANK:	JMP (BANKDISK_RESET_VECTOR)
 _start_ewoz:	JMP _EWOZ

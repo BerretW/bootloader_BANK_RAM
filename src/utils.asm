@@ -2,6 +2,8 @@
 .include "macros.inc65"
 
 .zeropage
+_delay_lo:				.res 1
+_delay_hi:				.res 1
 
 .smart		on
 .autoimport	on
@@ -17,6 +19,8 @@
 .export __delay2
 .export _print_nl
 .export INPUT_CHK
+.export _delay
+.export _via_test
 
 .segment "RODATA"
 msg_0:			.byte "Mazu BANKDISK", $00
@@ -40,6 +44,22 @@ _set_bank:
 _get_bank:  LDA BANK_BASE
             RTS
 
+
+
+_via_test:	LDA #$FF
+						STA VIA2_DDRB
+						LDA #$55
+						STA VIA2_ORB
+						JSR _delay
+						LDA #$AA
+						STA VIA2_ORB
+						JSR _delay
+						JMP _via_test
+
+via_loop:			JSR _acia_getc
+						STA VIA2_ORB
+						JSR _acia_putc
+						JMP via_loop
 ; ---------------------------------------------------------------
 ; void __near__ print_f (char *s)
 ; ---------------------------------------------------------------
@@ -68,6 +88,21 @@ _format_bank:
                   RTS
 @end_BANK:			  JMP @write_BANK
 
+
+_delay:
+  STA _delay_lo  ; save state
+  LDA #$00
+  STA _delay_hi  ; high byte
+delayloop:
+  ADC #01
+  BNE delayloop
+  CLC
+  INC _delay_hi
+  BNE delayloop
+  CLC
+  ; exit
+  LDA _delay_lo  ; restore state
+  RTS
 
 __delay2:				LDX #$2
 __delay3:				DEX

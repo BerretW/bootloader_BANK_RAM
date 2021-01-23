@@ -18,7 +18,6 @@
 				.import _format_bank
 
 
-				.export _delay
 				.export main
                 .segment "VECTORS"
 
@@ -40,13 +39,7 @@ irq:            JMP (RAMDISK_IRQ_VECTOR)
 								RTI
 
 
-main:						
+main:
 								JSR _acia_init
 
 								JMP _bootloader_
-
-
-_delay:					LDX #$FF
-_delay1:				DEX
-								BNE _delay1
-								RTS

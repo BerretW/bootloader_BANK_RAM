@@ -26,13 +26,7 @@ _delay_hi:				.res 1
 msg_0:			.byte "Mazu BANKDISK", $00
 
 .segment "CODE"
-INPUT_CHK:		JSR kbscan
-					CMP #0
-					BNE @END
-@RS:			LDA ACIA_STATUS
-					AND #ACIA_STATUS_RX_FULL
-					BEQ @END
-					LDA ACIA_DATA
+INPUT_CHK:
 @END:			RTS
 
 _set_bank:
@@ -56,9 +50,9 @@ _via_test:	LDA #$FF
 						JSR _delay
 						JMP _via_test
 
-via_loop:			JSR _acia_getc
+via_loop:			JSR CHRIN
 						STA VIA2_ORB
-						JSR _acia_putc
+						JSR CHROUT
 						JMP via_loop
 ; ---------------------------------------------------------------
 ; void __near__ print_f (char *s)

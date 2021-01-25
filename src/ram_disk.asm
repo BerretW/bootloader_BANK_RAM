@@ -3,11 +3,7 @@
 					.include "zeropage.inc65"
 					.include "ewoz.asm"
           .autoimport on
-					.import _acia_init
-					.import _acia_putc
-					.import _acia_getc
-					.import _acia_puts
-					.import _acia_put_newline
+
           .import _format_bank
 
 
@@ -38,10 +34,10 @@ _bootloader_:
 
 				LDA #<(msg_0)
 				LDX #>(msg_0)
-				JSR _print_nl
+				JSR PRNTLN
 				LDA #<(msg_2)
 				LDX #>(msg_2)
-				JSR _print_nl
+				JSR PRNTLN
         ;JSR kbinit
 
 ;kbrd:   JSR INPUT
@@ -50,7 +46,7 @@ _bootloader_:
 ;        JSR _acia_putc
 ;        JMP kbrd
 
-_loop:			JSR _acia_getc
+_loop:			JSR CHRIN
 
 				CMP #'w'
 				BEQ _start_write
@@ -116,7 +112,7 @@ _start_write_BANK:	JMP _write_to_BANK
 
 _start_bank_format: LDA #<(msg_13)
 				            LDX #>(msg_13)
-				         		JSR _print_nl
+				         		JSR PRNTLN
                     jsr _format_bank
                     JMP _go_loop
 _switch_b0: LDA #0
@@ -146,38 +142,38 @@ _switch_b7: LDA #7
 
 _print_help:	LDA #<(msg_3)
 				LDX #>(msg_3)
-				JSR _print_nl
+				JSR PRNTLN
 				LDA #<(msg_4)
 				LDX #>(msg_4)
-				JSR _print_nl
+				JSR PRNTLN
 				LDA #<(msg_5)
 				LDX #>(msg_5)
-				JSR _print_nl
+				JSR PRNTLN
 				LDA #<(msg_6)
 				LDX #>(msg_6)
-				JSR _print_nl
+				JSR PRNTLN
 				LDA #<(msg_7)
 				LDX #>(msg_7)
-				JSR _print_nl
+				JSR PRNTLN
 				LDA #<(msg_8)
 				LDX #>(msg_8)
-				JSR _print_nl
+				JSR PRNTLN
 				LDA #<(msg_9)
 				LDX #>(msg_9)
-				JSR _print_nl
+				JSR PRNTLN
 				LDA #<(msg_10)
 				LDX #>(msg_10)
-				JSR _print_nl
+				JSR PRNTLN
         LDA #<(msg_11)
         LDX #>(msg_11)
-				JSR _print_nl
+				JSR PRNTLN
 				JMP _loop
 
 
 
 _write_to_RAM:	LDA #<(msg_1)
 				        LDX #>(msg_1)
-				        JSR _print_nl
+				        JSR PRNTLN
 
 				        LDY #0
 				        LDA #<(RAMDISK)
@@ -185,7 +181,7 @@ _write_to_RAM:	LDA #<(msg_1)
 				        STA ptr1
 				        STX ptr1 + 1
 
-@write:			    JSR _acia_getc
+@write:			    JSR CHRIN
 				;JSR _lcd_putc
 				STA (ptr1), Y
 				INY
@@ -207,7 +203,7 @@ _read_RAM:
 				STA ptr1
 				STX ptr1 + 1
 @read:			LDA (ptr1),Y
-				JSR _acia_putc
+				JSR CHROUT
 				INY
 				CPY #$0
 				BNE @read
@@ -220,7 +216,7 @@ _read_RAM:
 
 _write_to_BANK:	LDA #<(msg_12)
 				LDX #>(msg_12)
-				JSR _print_nl
+				JSR PRNTLN
 
 				LDY #0
 				LDA #<(BANKDISK)
@@ -228,7 +224,7 @@ _write_to_BANK:	LDA #<(msg_12)
 				STA ptr1
 				STX ptr1 + 1
 
-@write_BANK:			JSR _acia_getc
+@write_BANK:			JSR CHRIN
 				;JSR _lcd_putc
 				STA (ptr1), Y
 				INY
@@ -250,7 +246,7 @@ _read_BANK:
 				STA ptr1
 				STX ptr1 + 1
 @read_BANK:			LDA (ptr1),Y
-				JSR _acia_putc
+				JSR CHROUT
 				INY
 				CPY #$0
 				BNE @read_BANK

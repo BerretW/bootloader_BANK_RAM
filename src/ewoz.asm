@@ -40,7 +40,7 @@ MULTIPORT = 1
 ; Lines with comments starting with "*" indicate code changes from the original WozMon.
 
 .if .defined(MULTIPORT )
-ACIA        = $CFF0
+ACIA        = $CF30
 ACIA_CTRL   = ACIA+3
 ACIA_CMD    = ACIA+2
 ACIA_SR     = ACIA+1

@@ -7,6 +7,23 @@
 .importzp	sp, sreg, regsave, regbank
 .importzp	tmp1, tmp2, tmp3, tmp4, ptr1, ptr2, ptr3, ptr4
 .macpack	longbranch
+.export	CHROUT
+.export	CHRIN
+.export	PRNTLN
+.export	PRNT
+.export	PRNL
+.export	SETBNK
+.export	GETBNK
+.export	SNINIT
+.export	SNWRT
+.export	SHDLY
+.export	RST
+.export	KBINPUT
+.export	KBGET
+.export	KBSCAN
+.export	KBINIT
+.export	INPUT
+.export	DLY
 
 .segment "JMPTBL"
 

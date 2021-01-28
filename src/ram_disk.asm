@@ -1,9 +1,11 @@
           .include "io.inc65"
-					.include "macros.inc65"
+					.include "macros_65C02.inc65"
 					.include "zeropage.inc65"
 					.include "ewoz.asm"
-          .autoimport on
 
+          .setcpu		"65C02"
+        	.smart		on
+        	.autoimport	on
           .import _format_bank
 
 
@@ -38,13 +40,13 @@ _bootloader_:
 				LDA #<(msg_2)
 				LDX #>(msg_2)
 				JSR PRNTLN
-        ;JSR kbinit
+        
 
-;kbrd:   JSR INPUT
-;				CMP #0
-;				BEQ kbrd
-;        JSR _acia_putc
-;        JMP kbrd
+
+
+
+
+
 
 _loop:			JSR CHRIN
 
